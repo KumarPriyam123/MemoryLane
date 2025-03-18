@@ -7,21 +7,12 @@ dotenv.config({
 });
 
 connectDB()
-
-
-// const app  = express ()
-// (async()=>{
-//     try {
-//         await mongoose.connect(`${process.env.MONGO_URI}/${DB_NAME}`)
-//         app.on ("error",(error => {
-//             console.log('Error connecting to the database: ', error);
-//             throw error;    
-//         }))
-//         app.listen(process.env.PORT, () => {
-//             console.log('Server is running on ${process.env.PORT}');
-//         });
-//     } catch (error) {
-//         console.log('Error connecting to the database: ', error);
-//         throw error;
-//     }
-// })()
+.then(()=>{
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`Server is running on ${process.env.PORT}`);    
+    });
+})
+.catch((err) => {
+    console.log("Mongodb connection error: ", err); 
+    process.exit(1);
+});
